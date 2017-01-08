@@ -18,8 +18,8 @@ var sb = require('./routes/sb');
 app.use('/sb', sb);
 
 // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
 if (app.get('env') != 'development'){
   // For client
