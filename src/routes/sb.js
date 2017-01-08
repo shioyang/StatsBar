@@ -33,6 +33,22 @@ router.get('/test', function(req, res, next){
   });
 });
 
+router.get('/test2', function(req, res, next){
+  var params = {
+    part: 'id,snippet',
+    channelId: 'UC6FadPgGviUcq6VQ0CEJqdQ',
+    order: 'date'
+  };
+  youTube.search('', 5, params, function(error, result){
+    if(error){
+      logError(error);
+      res.send(error);
+    }else{
+      res.send(result);
+    }
+  });
+});
+
 /*** POST ***/
 
 
