@@ -14,8 +14,8 @@ app.use(cookieParser());
 app.use(express.static(__dirname));
 
 // API path
-// var er = require('./routes/er');
-// app.use('/er', er);
+var sb = require('./routes/sb');
+app.use('/sb', sb);
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
