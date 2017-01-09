@@ -5,15 +5,23 @@ var youtubeUrl = 'https://www.googleapis.com/youtube/v3/';
 var youTubeAPIKey = process.env.YOUTUBE_APIKEY;
 
 var YouTube = function(){
+    /*** APIs ***/
     this.search = function(/* Object? */params, callback){
-        var url = this.genUrl('search', params);
-        console.log('url:' + url);
-        request(url, callback);
+        this.requestAction('search', params, callback);
     };
 
     this.playlistItems = function(/* Object? */params, callback){
-        var url = this.genUrl('playlistItems', params);
-        console.log('url:' + url);
+        this.requestAction('playlistItems', params, callback);
+    };
+
+    this.videos = function(/* Object? */params, callback){
+        this.requestAction('videos', params, callback);
+    };
+
+    /*** Utils ***/
+    this.requestAction = function(action, params, callback){
+        var url = this.genUrl(action, params);
+        console.log('  url:' + url);
         request(url, callback);
     };
 
