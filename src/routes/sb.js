@@ -21,8 +21,7 @@ router.get('/', function(req, res, next){
   //TODO
 });
 
-
-/*** POST ***/
+/* POST */
 /*
  * Request params
  *   channelId: string;
@@ -66,6 +65,52 @@ router.post('/playlistItems', function(req, res){
       res.send(error);
     }else{
       res.send(result.body);
+    }
+  });
+});
+
+/*
+ * Request params
+ *   playlistId: string;
+ * Response
+ *   Array of playlist items' details
+ */
+router.post('/playlistItemsDetails', function(req, res){
+  let playlistId = req.body.playlistId;
+  let params = {
+    part: 'id,snippet',
+    playlistId: playlistId,
+    maxResults: 50 // 0 to 50, default 5
+  };
+  youTube.playlistItems(params, function(error, result){
+    if(error){
+      logError(error);
+      res.send(error);
+    }else{
+      var videos = result.body.items || [];
+      var videoIds = [];
+
+      videos.forEach(function(v) {
+        var videoId = v.snippet.resourceId.videoId;
+        if(v.snippet && v.snippet.resourceId && v.snippet.resourceId.videoId){
+          videoIds.push(v.snippet.resourceId.videoId);
+        }
+      });
+
+      if(videoIds.length > 0){
+        var params = {
+          part: 'id,snippet,statistics',
+          id: videoIds
+        };
+        youTube.videos(params, function(error, result){
+          if(error){
+            logError(error);
+            res.send(error);
+          }else{
+            res.send(result.body.items || []);
+          }
+        });
+      }
     }
   });
 });
