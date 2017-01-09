@@ -87,11 +87,11 @@ router.post('/playlistItemsDetails', function(req, res){
       logError(error);
       res.send(error);
     }else{
-      var videos = result.body.items || [];
+      var data = JSON.parse(result.body);
+      var videos = data.items || [];
       var videoIds = [];
 
       videos.forEach(function(v) {
-        var videoId = v.snippet.resourceId.videoId;
         if(v.snippet && v.snippet.resourceId && v.snippet.resourceId.videoId){
           videoIds.push(v.snippet.resourceId.videoId);
         }
@@ -100,16 +100,19 @@ router.post('/playlistItemsDetails', function(req, res){
       if(videoIds.length > 0){
         var params = {
           part: 'id,snippet,statistics',
-          id: videoIds
+          id: videoIds.join(',')
         };
         youTube.videos(params, function(error, result){
           if(error){
             logError(error);
             res.send(error);
           }else{
-            res.send(result.body.items || []);
+            var data = JSON.parse(result.body);
+            res.send(data.items || []);
           }
         });
+      }else{
+        res.send([]);
       }
     }
   });
