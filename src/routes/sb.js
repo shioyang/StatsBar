@@ -36,15 +36,32 @@ router.get('/test', function(req, res, next){
 router.get('/test2', function(req, res, next){
   var params = {
     part: 'id,snippet',
-    channelId: 'UC6FadPgGviUcq6VQ0CEJqdQ',
-    order: 'date'
+    channelId: '',
+    order: 'date',
+    maxResults: 50 // 0 to 50, default 5
   };
   youTube.search(params, function(error, result){
     if(error){
       logError(error);
       res.send(error);
     }else{
-      res.send(result);
+      res.send(result.body);
+    }
+  });
+});
+
+router.get('/playlistItems', function(req, res, next){
+  var params = {
+    part: 'id,snippet',
+    playlistId: '',
+    maxResults: 50 // 0 to 50, default 5
+  };
+  youTube.playlistItems(params, function(error, result){
+    if(error){
+      logError(error);
+      res.send(error);
+    }else{
+      res.send(result.body);
     }
   });
 });

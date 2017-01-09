@@ -11,6 +11,12 @@ var YouTube = function(){
         request(url, callback);
     };
 
+    this.playlistItems = function(/* Object? */params, callback){
+        var url = this.genUrl('playlistItems', params);
+        console.log('url:' + url);
+        request(url, callback);
+    };
+
     this.genUrl = function(action, params){
         var paramsWithKey = params || {};
         paramsWithKey.key = youTubeAPIKey;
