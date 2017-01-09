@@ -21,22 +21,19 @@ router.get('/', function(req, res, next){
   //TODO
 });
 
-router.get('/test', function(req, res, next){
-  // youTube.getById('0E00Zuayv9Q', function(error, result){
-  //   // https://www.youtube.com/watch?v=0E00Zuayv9Q
-  //   if(error){
-  //     logError(error);
-  //     res.send(error);
-  //   }else{
-  //     res.send(result);
-  //   }
-  // });
-});
 
-router.get('/test2', function(req, res, next){
-  var params = {
+/*** POST ***/
+/*
+ * Request params
+ *   channelId: string;
+ * Response
+ *   result body of YouTube Data API
+ */
+router.post('/channelItems', function(req, res){
+  let channelId = req.body.channelId;
+  let params = {
     part: 'id,snippet',
-    channelId: '',
+    channelId: channelId,
     order: 'date',
     maxResults: 50 // 0 to 50, default 5
   };
@@ -50,10 +47,17 @@ router.get('/test2', function(req, res, next){
   });
 });
 
-router.get('/playlistItems', function(req, res, next){
-  var params = {
+/*
+ * Request params
+ *   playlistId: string;
+ * Response
+ *   result body of YouTube Data API
+ */
+router.post('/playlistItems', function(req, res){
+  let playlistId = req.body.playlistId;
+  let params = {
     part: 'id,snippet',
-    playlistId: '',
+    playlistId: playlistId,
     maxResults: 50 // 0 to 50, default 5
   };
   youTube.playlistItems(params, function(error, result){
@@ -65,8 +69,5 @@ router.get('/playlistItems', function(req, res, next){
     }
   });
 });
-
-/*** POST ***/
-
 
 module.exports = router;
