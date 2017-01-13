@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SbService } from './sb.service';
-
 import * as d3 from 'd3-selection';
+import { Video } from './video';
 
 @Component({
   selector: 'app-root',
@@ -10,26 +10,28 @@ import * as d3 from 'd3-selection';
 })
 export class AppComponent implements OnInit {
   title = 'app works!';
-  data = null;
+  videos = null;
   svg;
 
   constructor(private sbService: SbService) {}
 
   ngOnInit() {
     let t = this;
-    this.retrieveData(function(){
-      t.initSvg();
-    });
+    this.retrieveData(() => this.initSvg());
   }
 
   retrieveData(callback: any): void {
-    // TODO: this.sbService.
-    if (callback) {
-      callback();
-    }
+    let todo_playlistId = '';
+    let t = this;
+    this.sbService.getPlaylistItemsDetails(todo_playlistId)
+      .subscribe(function(videos: Video[]){
+        t.videos = videos;
+        if (callback) { callback(); }
+      });
   }
 
   initSvg(): void {
+    // after videos are loaded
     this.svg = d3.select('svg');
   }
 }
