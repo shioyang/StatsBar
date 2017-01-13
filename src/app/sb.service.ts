@@ -21,7 +21,7 @@ export class SbService {
   createVideoFromJson(json: any): Video[] {
     let arr = json.list;
     let ret: Video[] = [];
-    if(arr && arr.length > 0) {
+    if (arr && arr.length > 0) {
       arr.forEach(function(obj){
         ret.push(new Video(obj));
       });
