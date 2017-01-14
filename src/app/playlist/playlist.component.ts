@@ -20,7 +20,7 @@ export class PlaylistComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params
-      .switchMap((params: Params) => this.sbService.getPlaylistItemsDetails(params['id']))
+      .switchMap((params: Params) => this.sbService.getPlaylistItemsDetails(params['playlistId']))
       .subscribe((videos: Video[]) => this.videos = videos);
   }
 

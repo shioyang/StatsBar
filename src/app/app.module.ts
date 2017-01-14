@@ -10,7 +10,7 @@ import { SbService } from './sb.service';
 import { PlaylistComponent } from './playlist/playlist.component';
 
 const appRoutes: Routes = [
-  { path: 'playlist/:id', component: PlaylistComponent }
+  { path: 'playlist/:playlistId', component: PlaylistComponent }
 ];
 
 @NgModule({
