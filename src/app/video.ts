@@ -1,6 +1,11 @@
 export class Video {
   snippet: any;
   statistics: any;
+// commentCount
+// dislikeCount
+// favoriteCount
+// likeCount
+// viewCount
 
   constructor(json: any) {
     let arr = ['snippet', 'statistics'];

@@ -47,7 +47,7 @@ export class PlaylistComponent implements OnInit {
         .attr('font-size', '12px')
         .attr('fill', 'black')
         .attr('y', (d, i) => (14 * (i + 1)))
-        .text(d => d.snippet.title);
+        .text(d => d.snippet.title + ' view:' + d.statistics.viewCount);
   }
 
 }
