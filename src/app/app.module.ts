@@ -7,14 +7,16 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { SbService } from './sb.service';
+import { PlaylistComponent } from './playlist/playlist.component';
 
 const appRoutes: Routes = [
-  { path: '', component: null }
+  { path: 'playlist/:id', component: PlaylistComponent }
 ];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PlaylistComponent
   ],
   imports: [
     BrowserModule,
