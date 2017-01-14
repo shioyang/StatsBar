@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PLAYLIST_DATA } from './playlist';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'app works!';
+  playlist_data: { name: string, playlistId: string }[] = PLAYLIST_DATA;
 
   constructor() { }
 
