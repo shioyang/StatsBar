@@ -38,8 +38,10 @@ export class PlaylistComponent implements OnInit {
     }
     this.svg = svgArea.append('svg')
                         .classed('SbSvg', true)
-                        .attr('width', 400)
-                        .attr('height', 400);
+                        .attr('width', 400 + 40)
+                        .attr('height', 400 + 40)
+                      .append('g')
+                        .attr('transform', 'translate(' + 20 + ',' + 20 + ')');
   }
 
   showVideos(videos: Video[], stat: string): void {
@@ -61,6 +63,12 @@ export class PlaylistComponent implements OnInit {
           .attr('width', x.bandwidth())
           .attr('y', d => y(d.statistics.viewCount))
           .attr('height', d => 400 - y(d.statistics.viewCount));
+
+    this.svg.append('g')
+            .attr('transform', 'translate(0, ' + 400 + ')')
+            .call(d3.axisBottom(x));
+    this.svg.append('g')
+            .call(d3.axisLeft(y));
 
     // this.svg.selectAll('text').data(videos).enter()
     //   .append('text')
