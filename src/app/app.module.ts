@@ -3,8 +3,14 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { RouterModule, Routes } from '@angular/router';
+
 import { AppComponent } from './app.component';
 import { SbService } from './sb.service';
+
+const appRoutes: Routes = [
+  { path: '', component: null }
+];
 
 @NgModule({
   declarations: [
@@ -13,7 +19,8 @@ import { SbService } from './sb.service';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [SbService],
   bootstrap: [AppComponent]
