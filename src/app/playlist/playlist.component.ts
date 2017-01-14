@@ -37,11 +37,17 @@ export class PlaylistComponent implements OnInit {
     }
     this.svg = svgArea.append('svg')
                         .classed('SbSvg', true)
-                        .attr('x', 400)
-                        .attr('y', 400);
+                        .attr('width', 400)
+                        .attr('height', 400);
   }
 
   showVideos(videos: Video[]): void {
+    this.svg.selectAll('text').data(videos).enter()
+      .append('text')
+        .attr('font-size', '12px')
+        .attr('fill', 'black')
+        .attr('y', (d, i) => (14 * (i + 1)))
+        .text(d => d.snippet.title);
   }
 
 }
