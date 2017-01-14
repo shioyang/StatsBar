@@ -18,7 +18,7 @@ export class SbService {
         .map(res => this.createVideoFromJson(res.json()));
   }
 
-  createVideoFromJson(json: any): Video[] {
+  private createVideoFromJson(json: any): Video[] {
     let arr = json.list;
     let ret: Video[] = [];
     if (arr && arr.length > 0) {

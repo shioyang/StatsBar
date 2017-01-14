@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import 'rxjs/add/operator/switchMap';
+
+import { SbService } from '../sb.service';
+import { Video } from '../video';
 
 @Component({
   selector: 'app-playlist',
@@ -6,10 +11,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./playlist.component.css']
 })
 export class PlaylistComponent implements OnInit {
+  videos: Video[];
 
-  constructor() { }
+  constructor(
+    private sbService: SbService,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    this.activatedRoute.params
+      .switchMap((params: Params) => this.sbService.getPlaylistItemsDetails(params['id']))
+      .subscribe((videos: Video[]) => this.videos = videos);
   }
 
 }
