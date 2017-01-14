@@ -112,6 +112,7 @@ router.post('/playlistItemsDetails', function(req, res){
           }
         });
       }else{
+        console.log("No videos.");
         res.send([]);
       }
     }

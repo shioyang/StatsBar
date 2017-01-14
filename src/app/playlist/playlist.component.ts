@@ -12,7 +12,6 @@ import { Video } from '../video';
   styleUrls: ['./playlist.component.css']
 })
 export class PlaylistComponent implements OnInit {
-  videos: Video[];
   svg: d3.Selection<d3.BaseType, {}, HTMLElement, any>;
 
   constructor(
@@ -24,14 +23,25 @@ export class PlaylistComponent implements OnInit {
     this.activatedRoute.params
       .switchMap((params: Params) => this.sbService.getPlaylistItemsDetails(params['playlistId']))
       .subscribe((videos: Video[]) => {
-        this.videos = videos;
         this.initSvg();
+        this.showVideos(videos);
       });
   }
 
   initSvg(): void {
-    // after videos are loaded
-    this.svg = d3.select('svg');
+    let svgArea: d3.Selection<d3.BaseType, {}, HTMLElement, any>
+          = d3.select('.SbSvgArea');
+    this.svg = d3.select('.SbSvg');
+    if (this.svg.node()) {
+      this.svg.remove();
+    }
+    this.svg = svgArea.append('svg')
+                        .classed('SbSvg', true)
+                        .attr('x', 400)
+                        .attr('y', 400);
+  }
+
+  showVideos(videos: Video[]): void {
   }
 
 }
