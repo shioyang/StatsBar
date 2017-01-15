@@ -14,6 +14,8 @@ import { Video } from '../video';
 })
 export class PlaylistComponent implements OnInit {
   svg: d3.Selection<d3.BaseType, {}, HTMLElement, any>;
+  videos: Video[] = null;
+  stat: string = 'viewCount';
 
   constructor(
     private sbService: SbService,
@@ -25,7 +27,8 @@ export class PlaylistComponent implements OnInit {
       .switchMap((params: Params) => this.sbService.getPlaylistItemsDetails(params['playlistId']))
       .subscribe((videos: Video[]) => {
         this.initSvg();
-        this.showVideos(videos, 'viewCount');
+        this.videos = videos;
+        this.showVideos();
       });
   }
 
@@ -44,23 +47,25 @@ export class PlaylistComponent implements OnInit {
                         .attr('transform', 'translate(' + 20 + ',' + 20 + ')');
   }
 
-  showVideos(videos: Video[], stat: string): void {
+  showVideos(): void {
+    let videos: Video[] = this.videos;
+    let stat: string = this.stat;
     let x = d3.scaleLinear()
               .range([400, 0]);
     let y = d3.scaleBand()
               .range([0, 400])
               .padding(0.2);
 
-    x.domain([0, d3.max(videos, d => d.statistics.viewCount - 0)]);
+    x.domain([0, d3.max(videos, d => d.statistics[stat] - 0)]);
     y.domain(videos.map(d => d.snippet.title));
 
-    let sss = d3.max(videos, d => d.statistics.viewCount);
+    let sss = d3.max(videos, d => d.statistics[stat]);
 
     this.svg.selectAll('.bar').data(videos)
         .enter().append('rect')
           .attr('class', 'bar')
-          .attr('x', d => x(d.statistics.viewCount))
-          .attr('width', d => (400 + 20) - x(d.statistics.viewCount))
+          .attr('x', d => x(d.statistics[stat]))
+          .attr('width', d => (400 + 20) - x(d.statistics[stat]))
           .attr('y', d => y(d.snippet.title))
           .attr('height', y.bandwidth())
           .attr('fill', 'skyblue')
@@ -79,7 +84,15 @@ export class PlaylistComponent implements OnInit {
     //     .attr('font-size', '12px')
     //     .attr('fill', 'black')
     //     .attr('y', (d, i) => (14 * (i + 1)))
-    //     .text(d => d.snippet.title + ' view:' + d.statistics.viewCount);
+    //     .text(d => d.snippet.title + ' view:' + d.statistics[stat]);
+  }
+
+  onClick(stat: string): void {
+    this.stat = stat;
+    if (this.videos && this.videos.length >= 0) {
+      this.initSvg();
+      this.showVideos();
+    }
   }
 
 }

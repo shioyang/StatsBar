@@ -3,7 +3,7 @@ export class Video {
   statistics: any;
 // commentCount
 // dislikeCount
-// favoriteCount
+// favoriteCount <<- ???
 // likeCount
 // viewCount
 

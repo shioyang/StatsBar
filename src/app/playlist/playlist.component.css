@@ -1,3 +1,11 @@
+.SbStatList {
+    padding: 20px 5px 0 5px;
+}
+
+.SbStat {
+    padding: 10px;
+}
+
 .SbSvgArea {
     padding: 10px;
 }
