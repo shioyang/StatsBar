@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    padding: 5px 30px;
+/*    background-color: papayawhip; */
+}
+
+.SbButton {
+    font-size: 16px;
+    color: white;
+    background-color: brown;
+    border: 0px solid black;
+    box-shadow: 2px 2px 1px 0px grey;
+}

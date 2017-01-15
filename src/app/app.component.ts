@@ -7,7 +7,7 @@ import { PLAYLIST_DATA } from './playlist';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app works!';
+  title = 'Stats Bar';
   playlist_data: { name: string, playlistId: string }[] = PLAYLIST_DATA;
 
   constructor() { }
