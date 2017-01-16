@@ -1,10 +1,8 @@
 <h1>
   {{title}}
 </h1>
-<nav>
-  <a *ngFor="let d of playlist_data"
-      routerLink="/playlist/{{d.playlistId}}"
-      routerLinkActive="active">{{d.name}}</a>
+<nav *ngFor="let d of playlist_data">
+  <a routerLink="/playlist/{{d.playlistId}}" routerLinkActive="active">{{d.name}}</a>
 </nav>
 <router-outlet></router-outlet>
 <!-- Routed views go here -->
