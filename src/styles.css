@@ -10,4 +10,8 @@ body {
     background-color: brown;
     border: 0px solid black;
     box-shadow: 2px 2px 1px 0px grey;
+    cursor: pointer;
+    padding: 5px 8px 4px;
+    border-radius: 10px;
+    margin: 0 2px;
 }
