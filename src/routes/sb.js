@@ -108,6 +108,7 @@ router.post('/playlistItemsDetails', function(req, res){
             res.send(error);
           }else{
             var data = JSON.parse(result.body);
+            res.header({ 'Cache-Control': 'public, max-age=86400' }); // 1 day: 86400 = 24 * 60 * 60
             res.send(data.items || []);
           }
         });

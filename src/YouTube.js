@@ -21,7 +21,6 @@ var YouTube = function(){
     /*** Utils ***/
     this.requestAction = function(action, params, callback){
         var url = this.genUrl(action, params);
-        console.log('  url:' + url);
         request(url, callback);
     };
 
