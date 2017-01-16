@@ -61,15 +61,23 @@ export class PlaylistComponent implements OnInit {
 
     let sss = d3.max(videos, d => d.statistics[stat]);
 
-    this.svg.selectAll('.bar').data(videos)
+    this.svg.selectAll('.SbBar').data(videos)
         .enter().append('rect')
-          .attr('class', 'bar')
+          .attr('class', 'SbBar')
           .attr('x', d => x(d.statistics[stat]))
           .attr('width', d => (400 + 20) - x(d.statistics[stat]))
           .attr('y', d => y(d.snippet.title))
           .attr('height', y.bandwidth())
           .attr('fill', 'skyblue')
-          .attr('opacity', .8);
+          .attr('opacity', .8)
+          .on('mouseover', function(d) {
+            d3.select(this)
+              .attr('fill', 'dodgerblue');
+          })
+          .on('mouseout', function(d) {
+            d3.select(this)
+              .attr('fill', 'skyblue');
+          });
 
     this.svg.append('g')
             .attr('transform', 'translate(20, ' + 800 + ')')
