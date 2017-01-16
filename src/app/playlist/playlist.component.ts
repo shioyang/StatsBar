@@ -7,6 +7,12 @@ import * as d3 from 'd3';
 import { SbService } from '../sb.service';
 import { Video } from '../video';
 
+const WIDTH = 600;
+const HEIGHT = 800;
+const WIDTH_MARGIN = 20;
+const HEIGHT_MARGIN = 20;
+const WIDTH_FOR_TICK = 400;
+
 @Component({
   selector: 'app-playlist',
   templateUrl: './playlist.component.html',
@@ -41,19 +47,19 @@ export class PlaylistComponent implements OnInit {
     }
     this.svg = svgArea.append('svg')
                         .classed('SbSvg', true)
-                        .attr('width', 400 + 40 + 400)
-                        .attr('height', 800 + 40)
+                        .attr('width', WIDTH + WIDTH_FOR_TICK + WIDTH_MARGIN * 2)
+                        .attr('height', HEIGHT + HEIGHT_MARGIN * 2)
                       .append('g')
-                        .attr('transform', 'translate(' + 20 + ',' + 20 + ')');
+                        .attr('transform', 'translate(' + WIDTH_MARGIN + ',' + HEIGHT_MARGIN + ')');
   }
 
   showVideos(): void {
     let videos: Video[] = this.videos;
     let stat: string = this.stat;
     let x = d3.scaleLinear()
-              .range([400, 0]);
+              .range([WIDTH, 0]);
     let y = d3.scaleBand()
-              .range([0, 800])
+              .range([0, HEIGHT])
               .padding(0.2);
 
     x.domain([0, d3.max(videos, d => d.statistics[stat] - 0)]);
@@ -65,7 +71,7 @@ export class PlaylistComponent implements OnInit {
         .enter().append('rect')
           .attr('class', 'SbBar')
           .attr('x', d => x(d.statistics[stat]))
-          .attr('width', d => (400 + 20) - x(d.statistics[stat]))
+          .attr('width', d => (WIDTH + WIDTH_MARGIN) - x(d.statistics[stat]))
           .attr('y', d => y(d.snippet.title))
           .attr('height', y.bandwidth())
           .attr('fill', 'skyblue')
@@ -80,10 +86,10 @@ export class PlaylistComponent implements OnInit {
           });
 
     this.svg.append('g')
-            .attr('transform', 'translate(20, ' + 800 + ')')
+            .attr('transform', 'translate(' + WIDTH_MARGIN + ', ' + HEIGHT + ')')
             .call(d3.axisBottom(x));
     this.svg.append('g')
-            .attr('transform', 'translate(' + 420 + ', 0)')
+            .attr('transform', 'translate(' + (WIDTH + WIDTH_MARGIN) + ', 0)')
             .call(d3.axisRight(y));
                     // .tickFormat( d3.format('.1') ));
 
