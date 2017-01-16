@@ -1,11 +1,14 @@
 .SbStatList {
-    padding: 20px 5px 0 5px;
+  padding: 20px 5px 0 5px;
 }
 
 .SbStat {
-    padding: 10px;
+  padding: 10px 10px 0;
+}
+.SbStat .SbCurrentStat {
+  font-weight: bold;
 }
 
 .SbSvgArea {
-    padding: 10px;
+  padding: 10px 10px 0;
 }
