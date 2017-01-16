@@ -11,9 +11,9 @@
         "assets",
         "favicon.ico",
         "app.js",
+        "YouTube.js",
         "routes",
-        "views",
-        "YouTube.js"
+        "views"
       ],
       "index": "index.html",
       "main": "main.ts",
