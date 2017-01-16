@@ -42,7 +42,7 @@ export class PlaylistComponent implements OnInit {
     this.svg = svgArea.append('svg')
                         .classed('SbSvg', true)
                         .attr('width', 400 + 40 + 400)
-                        .attr('height', 400 + 40)
+                        .attr('height', 800 + 40)
                       .append('g')
                         .attr('transform', 'translate(' + 20 + ',' + 20 + ')');
   }
@@ -53,7 +53,7 @@ export class PlaylistComponent implements OnInit {
     let x = d3.scaleLinear()
               .range([400, 0]);
     let y = d3.scaleBand()
-              .range([0, 400])
+              .range([0, 800])
               .padding(0.2);
 
     x.domain([0, d3.max(videos, d => d.statistics[stat] - 0)]);
@@ -72,7 +72,7 @@ export class PlaylistComponent implements OnInit {
           .attr('opacity', .8);
 
     this.svg.append('g')
-            .attr('transform', 'translate(20, ' + 400 + ')')
+            .attr('transform', 'translate(20, ' + 800 + ')')
             .call(d3.axisBottom(x));
     this.svg.append('g')
             .attr('transform', 'translate(' + 420 + ', 0)')
