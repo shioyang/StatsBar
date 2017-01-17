@@ -12,3 +12,6 @@
 .SbSvgArea {
   padding: 0 10px;
 }
+.SbButton.SbCalcButton {
+  margin-top: 10px;
+}

@@ -65,19 +65,19 @@ export class PlaylistComponent implements OnInit {
 
     if (this.sorting) {
       videos = this.videos.concat(); // Keep original ordered array
-      videos.sort((a, b) => (b.statistics[stat] - a.statistics[stat]));
+      videos.sort((a, b) => (this.calcStatValue(b) - this.calcStatValue(a)));
     } else {
       videos = this.videos;
     }
 
-    x.domain([0, d3.max(videos, d => d.statistics[stat] - 0)]);
-    y.domain(videos.map(d => d.snippet.title));
+    x.domain([0, d3.max(videos, d => this.calcStatValue(d))]);
+    y.domain(videos.map( d => d.snippet.title));
 
     this.svg.selectAll('.SbBar').data(videos)
         .enter().append('rect')
           .attr('class', 'SbBar')
-          .attr('x', d => x(d.statistics[stat]))
-          .attr('width', d => (WIDTH + WIDTH_MARGIN) - x(d.statistics[stat]))
+          .attr('x', d => x(this.calcStatValue(d)))
+          .attr('width', d => (WIDTH + WIDTH_MARGIN) - x(this.calcStatValue(d)))
           .attr('y', d => y(d.snippet.title))
           .attr('height', y.bandwidth())
           .attr('fill', 'skyblue')
@@ -121,6 +121,23 @@ export class PlaylistComponent implements OnInit {
       this.initSvg();
       this.showVideos();
     }
+  }
+
+  private calcStatValue(v: Video): number {
+    let ret: number;
+    switch (this.stat) {
+      case 'viewCount':
+      case 'likeCount':
+      case 'dislikeCount':
+      case 'commentCount':
+            ret = v.statistics[this.stat] - 0;
+            break;
+      case 'likeRatio':
+            let like = v.statistics.likeCount - 0;
+            let dislike = v.statistics.dislikeCount - 0;
+            ret = like / (like + dislike);
+    }
+    return ret;
   }
 
   private genTranslateString(x: string, y: string): string {
