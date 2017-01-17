@@ -22,6 +22,7 @@ export class PlaylistComponent implements OnInit {
   svg: d3.Selection<d3.BaseType, {}, HTMLElement, any>;
   videos: Video[] = null;
   stat: string = 'viewCount';
+  sorting: boolean = false;
 
   constructor(
     private sbService: SbService,
@@ -54,7 +55,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   showVideos(): void {
-    let videos: Video[] = this.videos;
+    let videos: Video[] = null;
     let stat: string = this.stat;
     let x = d3.scaleLinear()
               .range([WIDTH, 0]);
@@ -62,10 +63,15 @@ export class PlaylistComponent implements OnInit {
               .range([0, HEIGHT])
               .padding(0.2);
 
+    if (this.sorting) {
+      videos = this.videos.concat(); // Keep original ordered array
+      videos.sort((a, b) => (b.statistics[stat] - a.statistics[stat]));
+    } else {
+      videos = this.videos;
+    }
+
     x.domain([0, d3.max(videos, d => d.statistics[stat] - 0)]);
     y.domain(videos.map(d => d.snippet.title));
-
-    let sss = d3.max(videos, d => d.statistics[stat]);
 
     this.svg.selectAll('.SbBar').data(videos)
         .enter().append('rect')
@@ -86,10 +92,10 @@ export class PlaylistComponent implements OnInit {
           });
 
     this.svg.append('g')
-            .attr('transform', 'translate(' + WIDTH_MARGIN + ', ' + HEIGHT + ')')
+            .attr('transform', this.genTranslateString(WIDTH_MARGIN.toString(), HEIGHT.toString()))
             .call(d3.axisBottom(x));
     this.svg.append('g')
-            .attr('transform', 'translate(' + (WIDTH + WIDTH_MARGIN) + ', 0)')
+            .attr('transform', this.genTranslateString((WIDTH + WIDTH_MARGIN).toString(), '0'))
             .call(d3.axisRight(y));
                     // .tickFormat( d3.format('.1') ));
 
@@ -103,10 +109,22 @@ export class PlaylistComponent implements OnInit {
 
   onClick(stat: string): void {
     this.stat = stat;
+    this.updateVideosArea();
+  }
+
+  onCheckboxChange(): void {
+    this.updateVideosArea();
+  }
+
+  private updateVideosArea(): void {
     if (this.videos && this.videos.length >= 0) {
       this.initSvg();
       this.showVideos();
     }
+  }
+
+  private genTranslateString(x: string, y: string): string {
+    return 'translate(' + x + ', ' + y + ')';
   }
 
 }

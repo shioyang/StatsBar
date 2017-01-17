@@ -4,6 +4,10 @@
         <td><button class="SbButton" (click)="onClick('likeCount')">Like Count</button></td>
         <td><button class="SbButton" (click)="onClick('dislikeCount')">Dislike Count</button></td>
         <td><button class="SbButton" (click)="onClick('commentCount')">Comment Count</button></td>
+        <td>
+            <input type="checkbox" class="SbCheckbox" [(ngModel)]="sorting" (change)="onCheckboxChange()" id="sortingMode">
+            <label for="sortingMode">Sorting</label>
+        </td>
     </tr>
 </table>
 <div class="SbStat"><span>Current: </span><span class="SbCurrentStat">{{stat}}</span></div>
