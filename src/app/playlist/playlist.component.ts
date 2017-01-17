@@ -70,7 +70,10 @@ export class PlaylistComponent implements OnInit {
       videos = this.videos;
     }
 
-    x.domain([0, d3.max(videos, d => this.calcStatValue(d))]);
+    let x_min = (this.stat === 'likeRatio') ?
+                  d3.min(videos, d => this.calcStatValue(d)) : 0;
+    let x_max = d3.max(videos, d => this.calcStatValue(d));
+    x.domain([x_min, x_max]);
     y.domain(videos.map( d => d.snippet.title));
 
     this.svg.selectAll('.SbBar').data(videos)
