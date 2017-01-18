@@ -4,6 +4,10 @@ var queryString = require('querystring');
 var youtubeUrl = 'https://www.googleapis.com/youtube/v3/';
 var youTubeAPIKey = process.env.YOUTUBE_APIKEY;
 
+if(!youTubeAPIKey){
+    console.error('Missing API key');
+}
+
 var YouTube = function(){
     /*** APIs ***/
     this.search = function(/* Object? */params, callback){
