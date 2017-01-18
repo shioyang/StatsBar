@@ -62,7 +62,7 @@ export class PlaylistComponent implements OnInit {
     let y = d3.scaleBand()
               .range([0, HEIGHT])
               .padding(0.2);
-
+    
     if (this.sorting) {
       videos = this.videos.concat(); // Keep original ordered array
       videos.sort((a, b) => (this.calcStatValue(b) - this.calcStatValue(a)));
@@ -127,18 +127,26 @@ export class PlaylistComponent implements OnInit {
   }
 
   private calcStatValue(v: Video): number {
-    let ret: number;
+    let ret = v.statistics[this.stat];
+    if (ret !== undefined) {
+      return ret - 0;
+    }
+
+    let like = v.statistics.likeCount - 0;
+    let dislike = v.statistics.dislikeCount - 0;
+    let view = v.statistics.viewCount - 0;
     switch (this.stat) {
-      case 'viewCount':
-      case 'likeCount':
-      case 'dislikeCount':
-      case 'commentCount':
-            ret = v.statistics[this.stat] - 0;
-            break;
       case 'likeRatio':
-            let like = v.statistics.likeCount - 0;
-            let dislike = v.statistics.dislikeCount - 0;
             ret = like / (like + dislike);
+            break;
+      case 'likeViewRatio':
+            ret = like / view;
+            break;
+      case 'dislikeViewRatio':
+            ret = dislike / view;
+            break;
+      default:
+            console.log('Unknown stat: ' + this.stat);
     }
     return ret;
   }
