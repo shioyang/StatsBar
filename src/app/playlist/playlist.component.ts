@@ -62,7 +62,7 @@ export class PlaylistComponent implements OnInit {
     let y = d3.scaleBand()
               .range([0, HEIGHT])
               .padding(0.2);
-    
+
     if (this.sorting) {
       videos = this.videos.concat(); // Keep original ordered array
       videos.sort((a, b) => (this.calcStatValue(b) - this.calcStatValue(a)));
@@ -79,8 +79,8 @@ export class PlaylistComponent implements OnInit {
     this.svg.selectAll('.SbBar').data(videos)
         .enter().append('rect')
           .attr('class', 'SbBar')
-          .attr('x', d => x(this.calcStatValue(d)))
-          .attr('width', d => (WIDTH + WIDTH_MARGIN) - x(this.calcStatValue(d)))
+          .attr('x', d => (WIDTH + WIDTH_MARGIN))
+          .attr('width', 0)
           .attr('y', d => y(d.snippet.title))
           .attr('height', y.bandwidth())
           .attr('fill', 'skyblue')
@@ -92,7 +92,10 @@ export class PlaylistComponent implements OnInit {
           .on('mouseout', function(d) {
             d3.select(this)
               .attr('fill', 'skyblue');
-          });
+          })
+          .transition().duration(1000)
+            .attr('x', d => x(this.calcStatValue(d)))
+            .attr('width', d => (WIDTH + WIDTH_MARGIN) - x(this.calcStatValue(d)));
 
     this.svg.append('g')
             .attr('transform', this.genTranslateString(WIDTH_MARGIN.toString(), HEIGHT.toString()))
