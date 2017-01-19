@@ -1,15 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var mcache = require('memory-cache');
 
 var YouTube = require('./YouTube');
 var youTube = new YouTube();
 
+var cache = require('./cache');
+
 /*** Utils ***/
 var logError = function(err){ console.log(err); }
 
-/*** REST ***/
-/* GET */
+/***** GET *****/
 /*
  * Response
  *   API list
@@ -19,7 +19,58 @@ router.get('/', function(req, res, next){
   //TODO
 });
 
-/* POST */
+/*
+ * URL params
+ *   playlistId: string;
+ * Response
+ *   Array of playlist items' details
+ */
+router.get('/playlistItemsDetails', cache(/*[sec]*/5 * 60), function(req, res){
+  let playlistId = req.query.playlistId;
+  let params = {
+    part: 'id,snippet',
+    playlistId: playlistId,
+    maxResults: 50 // 0 to 50, default 5
+  };
+  youTube.playlistItems(params, function(error, result){
+    if(error){
+      logError(error);
+      res.send(error);
+    }else{
+      var data = JSON.parse(result.body);
+      var videos = data.items || [];
+      var videoIds = [];
+
+      videos.forEach(function(v) {
+        if(v.snippet && v.snippet.resourceId && v.snippet.resourceId.videoId){
+          videoIds.push(v.snippet.resourceId.videoId);
+        }
+      });
+
+      if(videoIds.length > 0){
+        var params = {
+          part: 'id,snippet,statistics',
+          id: videoIds.join(',')
+        };
+        youTube.videos(params, function(error, result){
+          if(error){
+            logError(error);
+            res.send(error);
+          }else{
+            var data = JSON.parse(result.body);
+            res.header({ 'Cache-Control': 'public, max-age=86400' }); // 1 day: 86400 = 24 * 60 * 60
+            res.send(data.items || []);
+          }
+        });
+      }else{
+        console.log("No videos.");
+        res.send([]);
+      }
+    }
+  });
+});
+
+/***** POST *****/
 /*
  * Request params
  *   channelId: string;
@@ -63,57 +114,6 @@ router.post('/playlistItems', function(req, res){
       res.send(error);
     }else{
       res.send(result.body);
-    }
-  });
-});
-
-/*
- * Request params
- *   playlistId: string;
- * Response
- *   Array of playlist items' details
- */
-router.post('/playlistItemsDetails', function(req, res){
-  let playlistId = req.body.playlistId;
-  let params = {
-    part: 'id,snippet',
-    playlistId: playlistId,
-    maxResults: 50 // 0 to 50, default 5
-  };
-  youTube.playlistItems(params, function(error, result){
-    if(error){
-      logError(error);
-      res.send(error);
-    }else{
-      var data = JSON.parse(result.body);
-      var videos = data.items || [];
-      var videoIds = [];
-
-      videos.forEach(function(v) {
-        if(v.snippet && v.snippet.resourceId && v.snippet.resourceId.videoId){
-          videoIds.push(v.snippet.resourceId.videoId);
-        }
-      });
-
-      if(videoIds.length > 0){
-        var params = {
-          part: 'id,snippet,statistics',
-          id: videoIds.join(',')
-        };
-        youTube.videos(params, function(error, result){
-          if(error){
-            logError(error);
-            res.send(error);
-          }else{
-            var data = JSON.parse(result.body);
-            res.header({ 'Cache-Control': 'public, max-age=86400' }); // 1 day: 86400 = 24 * 60 * 60
-            res.send(data.items || []);
-          }
-        });
-      }else{
-        console.log("No videos.");
-        res.send([]);
-      }
     }
   });
 });

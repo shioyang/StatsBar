@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, RequestOptions, Http } from '@angular/http';
+import { Headers, RequestOptions, Http, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx'; // for operators
 import { Video } from './video';
@@ -12,9 +12,9 @@ export class SbService {
   constructor(private http: Http) { }
 
   getPlaylistItemsDetails(playlistId: string): Observable<Video[]> {
-    let headers = new Headers({ 'Content-Type': 'application/json'});
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.sbServerUrl + '/playlistItemsDetails', JSON.stringify({playlistId: playlistId}), options)
+    let searchParams = new URLSearchParams();
+    searchParams.set('playlistId', playlistId);
+    return this.http.get(this.sbServerUrl + '/playlistItemsDetails', { search: searchParams })
         .map(res => this.createVideoFromJson(res.json()));
   }
 
