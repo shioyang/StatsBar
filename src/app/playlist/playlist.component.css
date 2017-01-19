@@ -2,16 +2,18 @@
   padding: 20px 5px 0 5px;
 }
 
-.SbStat {
-  padding: 10px 10px 0;
-}
-.SbStat .SbCurrentStat {
-  font-weight: bold;
-}
-
 .SbSvgArea {
   padding: 0 10px;
 }
-.SbButton.SbCalcButton {
-  margin-top: 10px;
+
+.SbSeparator {
+  padding: 0 5px;
+}
+
+.SbCheckbox {
+  margin-top: 15px;
+}
+
+label {
+  color: dimgray;
 }

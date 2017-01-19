@@ -1,26 +1,32 @@
 <table class="SbStatList">
     <tr>
-        <td><button class="SbButton" (click)="onClick('viewCount')">View Count</button></td>
-        <td><button class="SbButton" (click)="onClick('likeCount')">Like Count</button></td>
-        <td><button class="SbButton" (click)="onClick('dislikeCount')">Dislike Count</button></td>
-        <td><button class="SbButton" (click)="onClick('commentCount')">Comment Count</button></td>
+        <td><button class="SbButton" [ngClass]="{'SbSelected': stat === 'viewCount'}"
+                    (click)="onClick('viewCount')">View Count</button></td>
+        <td><button class="SbButton" [ngClass]="{'SbSelected': stat === 'likeCount'}"
+                    (click)="onClick('likeCount')">Like Count</button></td>
+        <td><button class="SbButton" [ngClass]="{'SbSelected': stat === 'dislikeCount'}"
+                    (click)="onClick('dislikeCount')">Dislike Count</button></td>
+        <td><button class="SbButton" [ngClass]="{'SbSelected': stat === 'commentCount'}"
+                    (click)="onClick('commentCount')">Comment Count</button></td>
+        <td class="SbSeparator"></td>
         <td>
-            <input type="checkbox" class="SbCheckbox" [(ngModel)]="sorting" (change)="onCheckboxChange()" id="sortingMode">
-            <label for="sortingMode">Sorting</label>
+            <button class="SbButton SbCalcButton" [ngClass]="{'SbSelected': stat === 'likeViewRatio'}"
+                    (click)="onClick('likeViewRatio')">Like / View</button>
+        </td>
+        <td>
+            <button class="SbButton SbCalcButton" [ngClass]="{'SbSelected': stat === 'dislikeViewRatio'}"
+                    (click)="onClick('dislikeViewRatio')">Dislike / View</button>
+        </td>
+        <td>
+            <button class="SbButton SbCalcButton" [ngClass]="{'SbSelected': stat === 'likeRatio'}"
+                    (click)="onClick('likeRatio')">Like / (Like + Dislike)</button>
         </td>
     </tr>
     <tr>
-        <td colspan="2">
-            <button class="SbButton SbCalcButton" (click)="onClick('likeRatio')">Like / (Like + Dislike)</button>
+        <td colspan="8">
+            <input type="checkbox" class="SbCheckbox" [(ngModel)]="sorting" (change)="onCheckboxChange()" id="sortingMode">
+            <label for="sortingMode">Sort</label>
         </td>
-        <td>
-            <button class="SbButton SbCalcButton" (click)="onClick('likeViewRatio')">Like / View</button>
-        </td>
-        <td>
-            <button class="SbButton SbCalcButton" (click)="onClick('dislikeViewRatio')">Dislike / View</button>
-        </td>
-        <td></td>
     </tr>
 </table>
-<div class="SbStat"><span>Current: </span><span class="SbCurrentStat">{{stat}}</span></div>
 <div class="SbSvgArea"></div>
