@@ -1,11 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var mcache = require('memory-cache');
 
 var YouTube = require('../YouTube');
 var youTube = new YouTube();
-
-// var youTubeAPIKey = process.env.YOUTUBE_APIKEY;
-// youTube.setKey(youTubeAPIKey);
 
 /*** Utils ***/
 var logError = function(err){ console.log(err); }
@@ -116,6 +114,29 @@ router.post('/playlistItemsDetails', function(req, res){
         console.log("No videos.");
         res.send([]);
       }
+    }
+  });
+});
+
+/*
+ * Request params
+ *   videoId: string;
+ * Response
+ *   result body of YouTube Data API
+ */
+router.post('/commentThreads', function(req, res){
+  let videoId = req.body.videoId;
+  let params = {
+    part: 'id,replies,snippet',
+    videoId: videoId,
+    maxResults: 100 // 1 to 100, default 20
+  };
+  youTube.commentThreads(params, function(error, result){
+    if(error){
+      logError(error);
+      res.send(error);
+    }else{
+      res.send(result.body);
     }
   });
 });

@@ -22,6 +22,10 @@ var YouTube = function(){
         this.requestAction('videos', params, callback);
     };
 
+    this.commentThreads = function(/* Object? */params, callback){
+        this.requestAction('commentThreads', params, callback);
+    };
+
     /*** Utils ***/
     this.requestAction = function(action, params, callback){
         var url = this.genUrl(action, params);
