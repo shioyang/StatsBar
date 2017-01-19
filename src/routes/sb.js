@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mcache = require('memory-cache');
 
-var YouTube = require('../YouTube');
+var YouTube = require('./YouTube');
 var youTube = new YouTube();
 
 /*** Utils ***/
