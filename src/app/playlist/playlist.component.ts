@@ -86,13 +86,21 @@ export class PlaylistComponent implements OnInit {
           .attr('height', y.bandwidth())
           .attr('fill', 'skyblue')
           .attr('opacity', .8)
-          .on('mouseover', function(d) {
+          .on('mouseover', function(d, i) {
             d3.select(this)
               .attr('fill', 'dodgerblue');
+            d3.selectAll('.SbYAxis .tick image')
+              .classed('SbActive', function(da) { return da === videos[i].snippet.title; });
+            d3.selectAll('.SbYAxis .tick')
+              .classed('SbTickHidden', function(da) { return da !== videos[i].snippet.title; });
           })
           .on('mouseout', function(d) {
             d3.select(this)
               .attr('fill', 'skyblue');
+            d3.selectAll('.SbYAxis .tick image')
+              .classed('SbActive', false);
+            d3.selectAll('.SbYAxis .tick')
+              .classed('SbTickHidden', false);
           })
           .transition().duration(1000)
             .attr('x', d => x(this.calcStatValue(d)))
