@@ -152,9 +152,9 @@ export class PlaylistComponent implements OnInit {
       return ret - 0;
     }
 
-    let like = v.statistics.likeCount - 0;
-    let dislike = v.statistics.dislikeCount - 0;
-    let view = v.statistics.viewCount - 0;
+    let like = +v.statistics.likeCount;
+    let dislike = +v.statistics.dislikeCount;
+    let view = +v.statistics.viewCount;
     switch (this.stat) {
       case 'likeRatio':
             ret = like / (like + dislike);
