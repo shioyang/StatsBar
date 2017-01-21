@@ -108,18 +108,26 @@ export class PlaylistComponent implements OnInit {
             .call(d3.axisRight(y));
                     // .tickFormat( d3.format('.1') ));
 
-    // d3.selectAll('.SbYAxis').selectAll('.tick').selectAll('text')
+    d3.selectAll('.SbYAxis').selectAll('.tick')
+      .insert('image')
+        .classed('SbThumbnail', true)
+        .attr('xlink:href', function(d, i) { return videos[i].snippet.thumbnails.default.url; })
+        .attr('width', function(d, i) { return videos[i].snippet.thumbnails.default.width; })
+        .attr('height', function(d, i) { return videos[i].snippet.thumbnails.default.height; })
+        .attr('transform', this.genTranslateString('20', '15'));
+
     d3.selectAll('.SbYAxis').selectAll('.tick')
       .on('click', function(d, i) {
         window.open(VIDEO_BASE_URL + videos[i].id, '_blank');
+      })
+      .on('mouseover', function(d, i) {
+        d3.select(this).select('image')
+          .classed('SbActive', true);
+      })
+      .on('mouseout', function(d, i) {
+        d3.select(this).select('image')
+          .classed('SbActive', false);
       });
-
-    // this.svg.selectAll('text').data(videos).enter()
-    //   .append('text')
-    //     .attr('font-size', '12px')
-    //     .attr('fill', 'black')
-    //     .attr('y', (d, i) => (14 * (i + 1)))
-    //     .text(d => d.snippet.title + ' view:' + d.statistics[stat]);
   }
 
   onClick(stat: string): void {

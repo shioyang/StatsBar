@@ -27,3 +27,12 @@ body {
 .SbYAxis .tick {
   cursor: pointer;
 }
+
+.SbYAxis .tick .SbThumbnail {
+  display: none;
+  margin-top: 10px;
+}
+
+.SbYAxis .tick .SbThumbnail.SbActive {
+  display: block;
+}
