@@ -51,8 +51,6 @@ export class PlaylistComponent implements OnInit {
                         .classed('SbSvg', true)
                         .attr('width', WIDTH + WIDTH_FOR_TICK + WIDTH_MARGIN * 2)
                         .attr('height', HEIGHT + HEIGHT_MARGIN * 2)
-                      .append('g')
-                        .attr('transform', 'translate(' + WIDTH_MARGIN + ',' + HEIGHT_MARGIN + ')')
                         .on('click', function() {
                           d3.selectAll('.SbBar')
                             .attr('fill', 'skyblue');
@@ -60,7 +58,9 @@ export class PlaylistComponent implements OnInit {
                             .classed('SbActive', false);
                           d3.selectAll('.SbYAxis .tick')
                             .classed('SbTickHidden', false);
-                        });
+                        })
+                      .append('g')
+                        .attr('transform', 'translate(' + WIDTH_MARGIN + ',' + HEIGHT_MARGIN + ')');
   }
 
   showVideos(): void {
