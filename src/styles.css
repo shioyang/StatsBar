@@ -23,3 +23,7 @@ body {
   color: cornflowerblue;
   font-weight: bold;
 }
+
+.SbYAxis .tick {
+  cursor: pointer;
+}

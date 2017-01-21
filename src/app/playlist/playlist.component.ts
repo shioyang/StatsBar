@@ -12,6 +12,7 @@ const HEIGHT = 800;
 const WIDTH_MARGIN = 20;
 const HEIGHT_MARGIN = 20;
 const WIDTH_FOR_TICK = 400;
+const VIDEO_BASE_URL = 'https://www.youtube.com/watch?v=';
 
 @Component({
   selector: 'app-playlist',
@@ -98,12 +99,20 @@ export class PlaylistComponent implements OnInit {
             .attr('width', d => (WIDTH + WIDTH_MARGIN) - x(this.calcStatValue(d)));
 
     this.svg.append('g')
+            .classed('SbXAxis', true)
             .attr('transform', this.genTranslateString(WIDTH_MARGIN.toString(), HEIGHT.toString()))
             .call(d3.axisBottom(x));
     this.svg.append('g')
+            .classed('SbYAxis', true)
             .attr('transform', this.genTranslateString((WIDTH + WIDTH_MARGIN).toString(), '0'))
             .call(d3.axisRight(y));
                     // .tickFormat( d3.format('.1') ));
+
+    // d3.selectAll('.SbYAxis').selectAll('.tick').selectAll('text')
+    d3.selectAll('.SbYAxis').selectAll('.tick')
+      .on('click', function(d, i) {
+        window.open(VIDEO_BASE_URL + videos[i].id, '_blank');
+      });
 
     // this.svg.selectAll('text').data(videos).enter()
     //   .append('text')
