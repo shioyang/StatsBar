@@ -52,7 +52,15 @@ export class PlaylistComponent implements OnInit {
                         .attr('width', WIDTH + WIDTH_FOR_TICK + WIDTH_MARGIN * 2)
                         .attr('height', HEIGHT + HEIGHT_MARGIN * 2)
                       .append('g')
-                        .attr('transform', 'translate(' + WIDTH_MARGIN + ',' + HEIGHT_MARGIN + ')');
+                        .attr('transform', 'translate(' + WIDTH_MARGIN + ',' + HEIGHT_MARGIN + ')')
+                        .on('click', function() {
+                          d3.selectAll('.SbBar')
+                            .attr('fill', 'skyblue');
+                          d3.selectAll('.SbYAxis .tick image')
+                            .classed('SbActive', false);
+                          d3.selectAll('.SbYAxis .tick')
+                            .classed('SbTickHidden', false);
+                        });
   }
 
   showVideos(): void {
