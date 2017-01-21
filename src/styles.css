@@ -26,6 +26,11 @@ body {
 
 .SbYAxis .tick {
   cursor: pointer;
+  visibility: visible;
+}
+
+.SbYAxis .tick.SbTickHidden {
+  visibility: hidden;
 }
 
 .SbYAxis .tick .SbThumbnail {

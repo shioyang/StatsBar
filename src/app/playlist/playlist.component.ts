@@ -123,10 +123,14 @@ export class PlaylistComponent implements OnInit {
       .on('mouseover', function(d, i) {
         d3.select(this).select('image')
           .classed('SbActive', true);
+        d3.selectAll('.SbYAxis .tick')
+          .classed('SbTickHidden', function(d) { return d !== videos[i].snippet.title; });
       })
       .on('mouseout', function(d, i) {
         d3.select(this).select('image')
           .classed('SbActive', false);
+        d3.selectAll('.SbYAxis .tick')
+          .classed('SbTickHidden', false);
       });
   }
 
