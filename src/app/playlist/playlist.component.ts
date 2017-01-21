@@ -111,9 +111,9 @@ export class PlaylistComponent implements OnInit {
     d3.selectAll('.SbYAxis').selectAll('.tick')
       .insert('image')
         .classed('SbThumbnail', true)
-        .attr('xlink:href', function(d, i) { return videos[i].snippet.thumbnails.default.url; })
-        .attr('width', function(d, i) { return videos[i].snippet.thumbnails.default.width; })
-        .attr('height', function(d, i) { return videos[i].snippet.thumbnails.default.height; })
+        .attr('xlink:href', function(d, i) { return videos[i].snippet.thumbnails.medium.url; })
+        .attr('width', function(d, i) { return videos[i].snippet.thumbnails.medium.width; })
+        .attr('height', function(d, i) { return videos[i].snippet.thumbnails.medium.height; })
         .attr('transform', this.genTranslateString('20', '15'));
 
     d3.selectAll('.SbYAxis').selectAll('.tick')
