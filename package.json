@@ -12,7 +12,8 @@
     "e2e": "protractor",
     "postinstall": "ng build --prod",
     "client": "ng serve --proxy-config proxy.config.json",
-    "server": "node src/app"
+    "server": "node src/app",
+    "server-debug": "DEBUG=express:* node src/app"
   },
   "private": true,
   "dependencies": {
