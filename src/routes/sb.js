@@ -74,7 +74,39 @@ router.get('/playlistItemsDetails', cache(/*[sec] 30min*/30 * 60), function(req,
  * URL params
  *   videoId: string;
  * Response
- *   Array of playlist items' details
+ *   Video detail with comment threads
+ */
+router.get('/videoWithComments', cache(/*[sec] 1hr*/1 * 60 * 60), function(req, res){
+  let videoId = req.query.videoId;
+  var params = {
+    part: 'id,snippet,statistics',
+    id: videoId
+  };
+  youTube.videos(params, function(error, result) {
+    if(error){
+      logError(error);
+      res.send(error);
+    }else{
+      var data = JSON.parse(result.body);
+      var video = data.items[0];
+      getNextPageCommentThreads(videoId, null, function(error, result) {
+        if(error){
+          logError(error);
+          res.send(error);
+        }else{
+          video.commentThreads = result;
+          res.send(video);
+        }
+      });
+    }
+  });
+});
+
+/*
+ * URL params
+ *   videoId: string;
+ * Response
+ *   Comment threads
  */
 router.get('/commentThreadsAll', cache(/*[sec] 1hr*/1 * 60 * 60), function(req, res){
   let videoId = req.query.videoId;

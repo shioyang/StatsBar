@@ -124,13 +124,17 @@ export class PlaylistComponent implements OnInit {
             .call(d3.axisRight(y));
                     // .tickFormat( d3.format('.1') ));
 
+    let t = this;
     d3.selectAll('.SbYAxis').selectAll('.tick')
       .insert('image')
         .classed('SbThumbnail', true)
         .attr('xlink:href', function(d, i) { return videos[i].snippet.thumbnails.medium.url; })
         .attr('width', function(d, i) { return videos[i].snippet.thumbnails.medium.width; })
         .attr('height', function(d, i) { return videos[i].snippet.thumbnails.medium.height; })
-        .attr('transform', this.genTranslateString('20', '15'));
+        .attr('transform', function(d, i) {
+          return t.genTranslateString('20', '15');
+        });
+        // .attr('transform', this.genTranslateString('20', '15'));
 
     d3.selectAll('.SbYAxis').selectAll('.tick')
       .on('click', function(d, i) {
