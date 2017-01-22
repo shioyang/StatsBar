@@ -172,21 +172,28 @@ export class PlaylistComponent implements OnInit {
       return ret - 0;
     }
 
-    let like = +v.statistics.likeCount;
-    let dislike = +v.statistics.dislikeCount;
-    let view = +v.statistics.viewCount;
+    let like = v.statistics.likeCount ? +v.statistics.likeCount : 0;
+    let dislike = v.statistics.dislikeCount ? +v.statistics.dislikeCount : 0;
+    let view = v.statistics.viewCount ? +v.statistics.viewCount : 0;
     switch (this.stat) {
+      case 'commentCount':
+      case 'dislikeCount':
+      case 'likeCount':
+      case 'viewCount':
+           // v.statistics[this.stat] doesn't have value.
+           ret = 0;
+           break;
       case 'likeRatio':
-            ret = like / (like + dislike);
-            break;
+           ret = (like + dislike === 0) ? 0 : like / (like + dislike);
+           break;
       case 'likeViewRatio':
-            ret = like / view;
-            break;
+           ret = (view === 0) ? 0 : like / view;
+           break;
       case 'dislikeViewRatio':
-            ret = dislike / view;
-            break;
+           ret = (view === 0) ? 0 : dislike / view;
+           break;
       default:
-            console.log('Unknown stat: ' + this.stat);
+           console.log('Unknown stat: ' + this.stat);
     }
     return ret;
   }
