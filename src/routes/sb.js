@@ -25,7 +25,7 @@ router.get('/', function(req, res, next){
  * Response
  *   Array of playlist items' details
  */
-router.get('/playlistItemsDetails', cache(/*[sec]*/5 * 60), function(req, res){
+router.get('/playlistItemsDetails', cache(/*[sec] 30min*/30 * 60), function(req, res){
   let playlistId = req.query.playlistId;
   let params = {
     part: 'id,snippet',
@@ -69,6 +69,50 @@ router.get('/playlistItemsDetails', cache(/*[sec]*/5 * 60), function(req, res){
     }
   });
 });
+
+/*
+ * URL params
+ *   videoId: string;
+ * Response
+ *   Array of playlist items' details
+ */
+router.get('/commentThreadsAll', cache(/*[sec] 1hr*/1 * 60 * 60), function(req, res){
+  let videoId = req.query.videoId;
+  getNextPageCommentThreads(videoId, null, function(error, result) {
+    if(error){
+      logError(error);
+      res.send(error);
+    }else{
+      res.send(result);
+    }
+  });
+});
+
+var getNextPageCommentThreads = function(videoId, pageToken, callback) {
+  let params = {
+    part: 'id,replies,snippet',
+    videoId: videoId,
+    maxResults: 100 // 1 to 100, default 20
+  };
+  if (pageToken) {
+    params.pageToken = pageToken;
+  }
+  console.log('call commentThreads: ' + pageToken);
+  youTube.commentThreads(params, function(error, result){
+    if(error){
+      logError(error);
+      return error;
+    }else{
+      let data = JSON.parse(result.body);
+      let nextPageToken = data.nextPageToken;
+      console.log('result nextPageToken: ' + data.nextPageToken);
+      console.log('result items.length: ' + data.items.length);
+      return (nextPageToken) ? 
+        data.items.concat( getNextPageCommentThreads(videoId, nextPageToken, callback) ) :
+        callback(null, data.items);
+    }
+  });
+};
 
 /***** POST *****/
 /*
