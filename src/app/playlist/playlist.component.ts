@@ -52,6 +52,7 @@ export class PlaylistComponent implements OnInit {
                         .attr('width', WIDTH + WIDTH_FOR_TICK + WIDTH_MARGIN * 2)
                         .attr('height', HEIGHT + HEIGHT_MARGIN * 2)
                         .on('click', function() {
+                          // Clear style changes
                           d3.selectAll('.SbBar')
                             .attr('fill', 'skyblue');
                           d3.selectAll('.SbYAxis .tick image')
@@ -85,6 +86,7 @@ export class PlaylistComponent implements OnInit {
     x.domain([x_min, x_max]);
     y.domain(videos.map( d => d.snippet.title));
 
+    // Render bars
     this.svg.selectAll('.SbBar').data(videos)
         .enter().append('rect')
           .attr('class', 'SbBar')
@@ -114,6 +116,7 @@ export class PlaylistComponent implements OnInit {
             .attr('x', d => x(this.calcStatValue(d)))
             .attr('width', d => (WIDTH + WIDTH_MARGIN) - x(this.calcStatValue(d)));
 
+    // Render axises
     this.svg.append('g')
             .classed('SbXAxis', true)
             .attr('transform', this.genTranslateString(WIDTH_MARGIN.toString(), HEIGHT.toString()))
@@ -124,6 +127,7 @@ export class PlaylistComponent implements OnInit {
             .call(d3.axisRight(y));
                     // .tickFormat( d3.format('.1') ));
 
+    // Add thumbnails
     let t = this;
     d3.selectAll('.SbYAxis').selectAll('.tick')
       .insert('image')
@@ -136,8 +140,10 @@ export class PlaylistComponent implements OnInit {
         });
         // .attr('transform', this.genTranslateString('20', '15'));
 
+    // Show/Hide thumbnails
     d3.selectAll('.SbYAxis').selectAll('.tick')
       .on('click', function(d, i) {
+        // Go to selected video
         window.open(VIDEO_BASE_URL + videos[i].id, '_blank');
       })
       .on('mouseover', function(d, i) {
