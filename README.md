@@ -4,7 +4,7 @@ It retrieves statistics data from YouTube, and visualizes them.
 
 ## Prepare
 
-Add playlists in src/app/playlist.ts.
+Modify playlists data in src/app/playlist.ts.
 
 ## Install & build
 
