@@ -5,6 +5,9 @@ import { HttpModule } from '@angular/http';
 
 import { RouterModule, Routes } from '@angular/router';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { MdButtonModule } from '@angular/material'
+
 import { AppComponent } from './app.component';
 import { SbService } from './sb.service';
 import { PlaylistComponent } from './playlist/playlist.component';
@@ -26,7 +29,9 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    BrowserAnimationsModule,
+    MdButtonModule 
   ],
   providers: [SbService],
   bootstrap: [AppComponent]
