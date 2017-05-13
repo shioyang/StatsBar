@@ -15,6 +15,8 @@ PLAYLIST_DATA: {
 }[]
 ```
 
+It uses YouTube API. Add YOUTUBE_APIKEY to your environment variables.
+
 ## Install & build
 
 $ npm intall
