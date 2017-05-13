@@ -19,7 +19,7 @@ It uses YouTube API. Add YOUTUBE_APIKEY to your environment variables.
 
 ## Install & build
 
-$ npm intall
+$ yarn install
 
 ## Execute
 
