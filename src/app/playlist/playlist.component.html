@@ -14,8 +14,7 @@
   <button class="SbButton SbCalcButton" [ngClass]="{'SbSelected': stat === 'likeRatio'}"
           (click)="onClick('likeRatio')">Like / (Like + Dislike)</button>
   <div>
-    <input type="checkbox" class="SbCheckbox" [(ngModel)]="sorting" (change)="onCheckboxChange()" id="sortingMode">
-    <label for="sortingMode">Sort</label>
+    <md-checkbox [(ngModel)]="sorting" (change)="onCheckboxChange()">Sort</md-checkbox>
   </div>
 </div>
 <div class="SbSvgArea"></div>
