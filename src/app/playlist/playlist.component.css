@@ -2,10 +2,10 @@
   padding: 20px 5px 0 5px;
 }
 
-.SbSvgArea {
-  padding: 0 10px;
+.SbStatList .SbSelect {
+  width: 200px;
 }
 
-.SbCalcButton {
-  font-weight: bold;
+.SbSvgArea {
+  padding: 0 10px;
 }

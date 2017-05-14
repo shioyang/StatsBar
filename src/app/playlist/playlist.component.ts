@@ -22,8 +22,18 @@ const VIDEO_BASE_URL = 'https://www.youtube.com/watch?v=';
 export class PlaylistComponent implements OnInit {
   svg: d3.Selection<d3.BaseType, {}, HTMLElement, any>;
   videos: Video[] = null;
-  stat: string = 'viewCount';
+  selectedStat: string = 'viewCount';
   sorting: boolean = false;
+
+  stats = [
+    { value: "viewCount", name: "View Count"},
+    { value: "likeCount", name: "Like Count"},
+    { value: "dislikeCount", name: "Dislike Count"},
+    { value: "commentCount", name: "Comment Count"},
+    { value: "likeViewRatio", name: "Like / View"},
+    { value: "dislikeViewRatio", name: "Dislike / View"},
+    { value: "likeRatio", name: "Like / (Like + Dislike)"}
+  ];
 
   constructor(
     private sbService: SbService,
@@ -66,7 +76,7 @@ export class PlaylistComponent implements OnInit {
 
   showVideos(): void {
     let videos: Video[] = null;
-    let stat: string = this.stat;
+    // let stat: string = this.selectedStat;
     let x = d3.scaleLinear()
               .range([WIDTH, 0]);
     let y = d3.scaleBand()
@@ -80,7 +90,7 @@ export class PlaylistComponent implements OnInit {
       videos = this.videos;
     }
 
-    let x_min = (this.stat === 'likeRatio') ?
+    let x_min = (this.selectedStat === 'likeRatio') ?
                   d3.min(videos, d => this.calcStatValue(d)) : 0;
     let x_max = d3.max(videos, d => this.calcStatValue(d));
     x.domain([x_min, x_max]);
@@ -160,8 +170,7 @@ export class PlaylistComponent implements OnInit {
       });
   }
 
-  onClick(stat: string): void {
-    this.stat = stat;
+  onStatChange(): void {
     this.updateVideosArea();
   }
 
@@ -177,7 +186,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   private calcStatValue(v: Video): number {
-    let ret = v.statistics[this.stat];
+    let ret = v.statistics[this.selectedStat];
     if (ret !== undefined) {
       return ret - 0;
     }
@@ -185,12 +194,12 @@ export class PlaylistComponent implements OnInit {
     let like = v.statistics.likeCount ? +v.statistics.likeCount : 0;
     let dislike = v.statistics.dislikeCount ? +v.statistics.dislikeCount : 0;
     let view = v.statistics.viewCount ? +v.statistics.viewCount : 0;
-    switch (this.stat) {
+    switch (this.selectedStat) {
       case 'commentCount':
       case 'dislikeCount':
       case 'likeCount':
       case 'viewCount':
-           // v.statistics[this.stat] doesn't have value.
+           // v.statistics[this.selectedStat] doesn't have value.
            ret = 0;
            break;
       case 'likeRatio':
@@ -203,7 +212,7 @@ export class PlaylistComponent implements OnInit {
            ret = (view === 0) ? 0 : dislike / view;
            break;
       default:
-           console.log('Unknown stat: ' + this.stat);
+           console.log('Unknown stat: ' + this.selectedStat);
     }
     return ret;
   }
