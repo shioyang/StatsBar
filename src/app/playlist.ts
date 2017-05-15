@@ -8,8 +8,8 @@ export const PLAYLIST_DATA: {
     name: 'Kouhaku 2016',
     channelId: null,
     items: [
-      { name: 'Team-RED', playlistId: 'PLQntWbrycbJfKkLkU25hEpUsOordsQ3pr' },
-      { name: 'Team-WHITE', playlistId: 'PLQntWbrycbJdnjZxetU31jRKsAR-mugw3' }
+      { name: 'Team-RED', playlistId: 'PLQntWbrycbJdnjZxetU31jRKsAR-mugw3' },
+      { name: 'Team-WHITE', playlistId: 'PLQntWbrycbJfKkLkU25hEpUsOordsQ3pr' }
     ]
   }
 ];
