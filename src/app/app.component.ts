@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PLAYLIST_DATA } from './playlist';
 
 @Component({
@@ -11,16 +12,20 @@ export class AppComponent implements OnInit {
   playlist_data = PLAYLIST_DATA;
   items: { name: string, playlistId: string }[] = null;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     if (this.playlist_data.length > 0) {
-      this.onMenuClick(0); // Select first one
+      this.selectPlaylist(0); // Select first one
     }
   }
 
-  onMenuClick(index: number): void {
+  selectPlaylist(index: number): void {
     this.items = this.playlist_data[index].items;
+  }
+
+  onItemChange(selectedItem: { value: string }): void {
+    this.router.navigate(['/playlist', selectedItem.value])
   }
 
 }

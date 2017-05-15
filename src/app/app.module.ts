@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { MdCheckboxModule, MdSelectModule } from '@angular/material'
+import { MdCheckboxModule, MdSelectModule, MdButtonToggleModule } from '@angular/material'
 
 import { AppComponent } from './app.component';
 import { SbService } from './sb.service';
@@ -32,7 +32,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     MdCheckboxModule, 
-    MdSelectModule 
+    MdSelectModule,
+    MdButtonToggleModule 
   ],
   providers: [SbService],
   bootstrap: [AppComponent]
