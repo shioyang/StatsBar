@@ -14,6 +14,9 @@ export class AppComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if (this.playlist_data.length > 0) {
+      this.onMenuClick(0); // Select first one
+    }
   }
 
   onMenuClick(index: number): void {
