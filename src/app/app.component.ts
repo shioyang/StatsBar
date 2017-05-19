@@ -28,4 +28,8 @@ export class AppComponent implements OnInit {
     this.router.navigate(['/playlist', selectedItem.value])
   }
 
+  onMenuClick(index: number): void {
+    this.items = this.playlist_data[index].items;
+  }
+
 }
