@@ -1,9 +1,14 @@
 <h1>
   <a routerLink="/">{{title}}</a>
 </h1>
-<div>
-  <button *ngFor="let d of playlist_data; let i = index"
-        (click)="onMenuClick(i)" class="SbButton">{{d.name}}</button>
+<div class="SbPlaylistsArea">
+  <div *ngIf="playlist_data.length !== 1; else onePlaylistBlock">
+    <button *ngFor="let d of playlist_data; let i = index"
+            (click)="onMenuClick(i)" class="SbButton">{{d.name}}</button>
+  </div>
+  <ng-template #onePlaylistBlock>
+    <span>{{playlist_data[0].name}}</span>
+  </ng-template>
 </div>
 <md-button-toggle-group #selectedItem="mdButtonToggleGroup" (change)="onItemChange(selectedItem)">
   <md-button-toggle *ngFor="let item of items" [value]="item.playlistId">{{item.name}}</md-button-toggle>
