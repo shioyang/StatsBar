@@ -10,9 +10,11 @@
     <span>{{playlist_data[0].name}}</span>
   </ng-template>
 </div>
-<md-button-toggle-group #selectedItem="mdButtonToggleGroup" (change)="onItemChange(selectedItem)">
-  <md-button-toggle *ngFor="let item of items" [value]="item.playlistId">{{item.name}}</md-button-toggle>
-</md-button-toggle-group>
+<div class="SbPlaylistItemArea">
+  <md-button-toggle-group #selectedItem="mdButtonToggleGroup" (change)="onItemChange(selectedItem)">
+    <md-button-toggle *ngFor="let item of items" [value]="item.playlistId">{{item.name}}</md-button-toggle>
+  </md-button-toggle-group>
+</div>
 
 <router-outlet></router-outlet>
 <!-- Routed views go here -->
