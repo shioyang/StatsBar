@@ -1,7 +1,11 @@
-<div class="SbStatList">
-  <md-select class="SbSelect" placeholder="Stat" [(ngModel)]="selectedStat" (change)="onStatChange()">
-    <md-option *ngFor="let stat of stats" [value]="stat.value">{{stat.name}}</md-option>
-  </md-select>
-  <md-checkbox class="SbSorting" [(ngModel)]="sorting" (change)="onCheckboxChange()">Sort</md-checkbox>
+<div class="SbGraphArea">
+  <div class="SbGraphAreaDropShadow">
+    <div class="SbStatList">
+      <md-select class="SbSelect" placeholder="Stat" [(ngModel)]="selectedStat" (change)="onStatChange()">
+        <md-option *ngFor="let stat of stats" [value]="stat.value">{{stat.name}}</md-option>
+      </md-select>
+      <md-checkbox class="SbSorting" [(ngModel)]="sorting" (change)="onCheckboxChange()">Sort</md-checkbox>
+    </div>
+    <div class="SbSvgArea"></div>
+  </div>
 </div>
-<div class="SbSvgArea"></div>

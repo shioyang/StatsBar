@@ -7,8 +7,8 @@ import * as d3 from 'd3';
 import { SbService } from '../sb.service';
 import { Video } from '../video';
 
-const WIDTH = 600;
-const HEIGHT = 800;
+const WIDTH = 800;
+const HEIGHT = 1000;
 const WIDTH_MARGIN = 20;
 const HEIGHT_MARGIN = 20;
 const WIDTH_FOR_TICK = 400;

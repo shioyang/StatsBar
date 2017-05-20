@@ -1,5 +1,13 @@
+.SbGraphArea {
+  padding: 20px 0;
+}
+
+.SbGraphAreaDropShadow {
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
+}
+
 .SbStatList {
-  padding: 20px 5px 0 5px;
+  padding: 30px 20px 0 20px;
 }
 
 .SbStatList .SbSelect {
@@ -7,7 +15,7 @@
 }
 
 .SbSvgArea {
-  padding: 0 10px;
+  padding: 0 5px 10px 5px;
 }
 
 .SbSorting {
