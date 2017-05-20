@@ -1,14 +1,15 @@
 <h1>
-  <a routerLink="/">{{title}}</a>
+  <a routerLink="/">
+    <span *ngIf="playlist_data.length !== 1; else onePlaylistBlock">{{title}}</span>
+    <ng-template #onePlaylistBlock>
+      <span>{{title}}</span><span class="SbTitlePlaylist"> for {{playlist_data[0].name}}</span></ng-template>
+  </a>
 </h1>
 <div class="SbPlaylistsArea">
-  <div *ngIf="playlist_data.length !== 1; else onePlaylistBlock">
+  <div *ngIf="playlist_data.length !== 1">
     <button *ngFor="let d of playlist_data; let i = index"
             (click)="onMenuClick(i)" class="SbButton">{{d.name}}</button>
   </div>
-  <ng-template #onePlaylistBlock>
-    <span>{{playlist_data[0].name}}</span>
-  </ng-template>
 </div>
 <div class="SbPlaylistItemArea">
   <md-button-toggle-group #selectedItem="mdButtonToggleGroup" (change)="onItemChange(selectedItem)">

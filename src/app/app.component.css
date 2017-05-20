@@ -3,10 +3,10 @@ h1 a {
   text-decoration: none;
 }
 
-.SbPlaylistsArea {
+.SbPlaylistsArea div {
   padding: 7px 0;
 }
 
-.SbPlaylistItemArea {
-  padding: 7px 0;
+.SbTitlePlaylist {
+  font-size: 20px;
 }
