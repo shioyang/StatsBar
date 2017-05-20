@@ -2,6 +2,6 @@
   <md-select class="SbSelect" placeholder="Stat" [(ngModel)]="selectedStat" (change)="onStatChange()">
     <md-option *ngFor="let stat of stats" [value]="stat.value">{{stat.name}}</md-option>
   </md-select>
-  <md-checkbox [(ngModel)]="sorting" (change)="onCheckboxChange()">Sort</md-checkbox>
+  <md-checkbox class="SbSorting" [(ngModel)]="sorting" (change)="onCheckboxChange()">Sort</md-checkbox>
 </div>
 <div class="SbSvgArea"></div>
