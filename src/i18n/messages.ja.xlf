@@ -12,7 +12,7 @@
       </trans-unit>
       <trans-unit id="fee421c87ee7874806990fadeca931774d74ca5e" datatype="html">
         <source>It retrieves statistics data from YouTube videos, and visualizes them.</source>
-        <target>YouTube から統計データを取得して、グラフにして表示します。</target>
+        <target>YouTube から統計データを取得して、グラフに表示します。</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/welcome/welcome.component.ts</context>
           <context context-type="linenumber">2</context>
