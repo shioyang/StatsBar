@@ -13,7 +13,8 @@
     "postinstall": "ng build --prod",
     "client": "ng serve --proxy-config proxy.config.json",
     "server": "node src/app",
-    "server-debug": "DEBUG=express:* node src/app"
+    "server-debug": "DEBUG=express:* node src/app",
+    "i18n": "ng-xi18n -p src/tsconfig.json --i18nFormat=xlf"
   },
   "private": true,
   "dependencies": {
