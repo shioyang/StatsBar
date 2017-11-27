@@ -22,7 +22,7 @@ const VIDEO_BASE_URL = 'https://www.youtube.com/watch?v=';
 export class PlaylistComponent implements OnInit {
   svg: d3.Selection<d3.BaseType, {}, HTMLElement, any>;
   videos: Video[] = null;
-  selectedStat: string = 'viewCount';
+  selectedStat: string = 'likeRatio';
   sorting: boolean = true;
 
   stats = [
