@@ -23,7 +23,7 @@ export class PlaylistComponent implements OnInit {
   svg: d3.Selection<d3.BaseType, {}, HTMLElement, any>;
   videos: Video[] = null;
   selectedStat: string = 'viewCount';
-  sorting: boolean = false;
+  sorting: boolean = true;
 
   stats = [
     { value: "viewCount", name: "View Count"},
